@@ -55,3 +55,5 @@ GTAGS
 /config.status
 /VERSION
 /CMakeLists.txt
+.idea
+.gitignore

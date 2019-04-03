@@ -285,6 +285,7 @@ extern bool log_planner_stats;
 extern bool log_executor_stats;
 extern bool log_statement_stats;
 extern bool log_dispatch_stats;
+extern bool enable_direct_copy_file;
 extern bool log_btree_build_stats;
 
 extern PGDLLIMPORT bool check_function_bodies;
@@ -537,6 +538,8 @@ extern char  *gp_hadoop_connector_jardir;  /* relative dir on $GPHOME of the Had
 extern char  *gp_hadoop_connector_version; /* connector version (internal use only) */
 extern char  *gp_hadoop_target_version; /* the target hadoop distro/version */
 extern char  *gp_hadoop_home;    /* $HADOOP_HOME on all segments */
+extern char  *udw_admin_user;    /* udw admin user on all segments */
+
 
 /* Time based authentication GUC */
 extern char  *gp_auth_time_override_str;

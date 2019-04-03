@@ -1387,6 +1387,12 @@ DoCopyInternal(const CopyStmt *stmt, const char *queryString, CopyState cstate)
 						 "psql's \\copy command also works for anyone.")));
 	}
 
+	//避免copy操作直接穿透docker
+	if(!enable_direct_copy_file && !pipe && strcmp(GetUserNameFromId(GetUserId()),udw_admin_user))
+		ereport(ERROR,
+				(errcode(ERRCODE_INSUFFICIENT_PRIVILEGE),
+						(errmsg("no authority to copy file from/to server,please use pip copy"))));
+
 	cstate->copy_dest = COPY_FILE;		/* default */
 	if (Gp_role == GP_ROLE_EXECUTE)
 	{

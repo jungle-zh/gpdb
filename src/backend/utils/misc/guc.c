@@ -219,6 +219,7 @@ bool		log_planner_stats = false;
 bool		log_executor_stats = false;
 bool		log_statement_stats = false;		/* this is sort of all three
 												 * above together */
+bool        enable_direct_copy_file = false;
 bool		log_btree_build_stats = false;
 
 bool		check_function_bodies = true;
@@ -294,6 +295,7 @@ static bool integer_datetimes;
 //static bool standard_conforming_strings;
 static char *allow_system_table_mods_str;
 
+char      *udw_admin_user;
 /* should be static, but commands/variable.c needs to get at these */
 char	   *role_string;
 char	   *session_authorization_string;
@@ -796,6 +798,14 @@ static struct config_bool ConfigureNamesBool[] =
 		},
 		&log_statement_stats,
 		false, assign_log_stats, NULL
+	},
+	{
+		{"enable_direct_copy_file", PGC_POSTMASTER, FILE_LOCATIONS,
+   			gettext_noop("Writes cumulative performance statistics to the server log."),
+   			NULL
+   		},
+   		&enable_direct_copy_file,
+   		false, NULL, NULL
 	},
 #ifdef BTREE_BUILD_STATS
 	{
@@ -2146,6 +2156,14 @@ static struct config_string ConfigureNamesString[] =
 		},
 		&IntervalStyle_string,
 		"postgres", assign_IntervalStyle, show_IntervalStyle
+	},
+	{
+		{"udw_admin_user", PGC_POSTMASTER, DEVELOPER_OPTIONS,
+        	gettext_noop("The location where confiure udw admin user."),
+        	NULL
+        },
+        &udw_admin_user,
+        "postgres", NULL, NULL
 	},
 
 	{
